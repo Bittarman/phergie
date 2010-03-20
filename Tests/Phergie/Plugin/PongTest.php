@@ -20,10 +20,10 @@
  */
 
 /**
- * Handles events initiated by plugins.
+ * Unit test suite for Pherge_Plugin_Pong.
  *
  * @category Phergie
- * @package  Phergie
+ * @package  Phergie_Tests
  * @author   Phergie Development Team <team@phergie.org>
  * @license  http://phergie.org/license New BSD License
  * @link     http://pear.phergie.org/package/Phergie
