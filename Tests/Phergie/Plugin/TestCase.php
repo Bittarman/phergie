@@ -72,10 +72,36 @@ abstract class Phergie_Plugin_TestCase extends PHPUnit_Framework_TestCase
     /**
      * Assert that a given event type exists in the event handler
      * @param string $event
+     * @param string $message
      */
-    public function assertHasEvent($event)
+    public function assertHasEvent($event, $message = null)
     {
-        self::assertTrue($this->handler->hasEventOfType($event));
+        self::assertTrue($this->handler->hasEventOfType($event), $message);
+    }
+
+    /**
+     * Assert that a given event type DOES NOT exist in the event handler
+     * @param string $event
+     * @param string $message
+     */
+    public function assertDoesNotHaveEvent($event, $message = null)
+    {
+        self::assertFalse($this->handler->hasEventOfType($event), $message);
+    }
+
+    /**
+     * Assert that the emitter of the given command event was the given
+     * plugin
+     *
+     * @param Phergie_Event_Command   $event
+     * @param Phergie_Plugin_Abstract $plugin
+     * @param string                  $message
+     */
+    public function assertEventEmitter(Phergie_Event_Command $event,
+                                       Phergie_Plugin_Abstract $plugin,
+                                       $message = null)
+    {
+        $this->assertSame($plugin, $event->getPlugin(), $message);
     }
 
     /**
@@ -123,6 +149,7 @@ abstract class Phergie_Plugin_TestCase extends PHPUnit_Framework_TestCase
         $this->plugin = $plugin;
         $this->plugin->setEventHandler($this->handler);
         $this->plugin->setConnection($this->connection);
+        $this->connection->setNick('test');
         if (!empty($this->config)) {
             $config = new Phergie_Config();
             foreach ($this->config as $configKey => $configValue) {
