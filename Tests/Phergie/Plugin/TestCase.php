@@ -165,7 +165,6 @@ abstract class Phergie_Plugin_TestCase extends PHPUnit_Framework_TestCase
      */
     protected function runTest()
     {
-
         if (null === $this->plugin) {
             throw new RuntimeException(
                     'Tests cannot be run before plugin is set'
